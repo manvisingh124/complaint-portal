@@ -159,30 +159,51 @@ a:hover {
 
 
 @media screen and (max-width: 768px) {
-    .menu-toggle {
-        display: inline-block; 
-    }
-
     .hero {
-        padding: 20px;
+        padding: 20px 15px;
         text-align: center;
+        box-sizing: border-box;
+        width: 100%;
+        overflow-x: hidden; 
     }
 
     .hero h1 {
         font-size: 24px;
+        margin-top: 20px;
+    }
+
+    .hero p {
+        font-size: 15px;
+        line-height: 1.4;
+        padding: 0 10px;
+    }
+
+    
+    .menu-toggle {
+        display: inline-block !important; 
+        margin: 20px 15px 20px auto;
+        float: right;
+        padding: 12px 24px;
     }
 
     
     .menu {
         display: none; 
-        flex-direction: column;
-        gap: 10px;
+        width: 100%;
+        max-width: 300px;
+        margin: 15px auto 0 auto;
     }
 
+    
     .menu a {
         display: block;
         width: 100%;
         padding: 12px;
+        margin-bottom: 8px;
         box-sizing: border-box;
+        text-decoration: none;
+        background-color: #f1f1f1; 
+        color: #333;
+        border-radius: 5px;
     }
 }
