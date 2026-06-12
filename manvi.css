@@ -157,64 +157,83 @@ a:hover {
     margin-bottom: 15px;
 }
 
+/* मोबाइल स्क्रीन के लिए एकदम परफेक्ट और क्लीन सेटिंग्स */
 @media screen and (max-width: 768px) {
     
-    
-    body {
+    /* 1. स्क्रीन को लेफ्ट-राइट भागने से रोकने के लिए और बायीं तरफ का एक्स्ट्रा टेक्स्ट छिपाने के लिए */
+    html, body {
+        width: 100%;
         overflow-x: hidden; 
+        margin: 0;
+        padding: 0;
     }
 
-    
-    header, nav, .navbar { 
+    /* अगर कोई पुराना नेविगेशन बार या साइडबार बाहर घूम रहा है तो उसे पूरी तरह गायब करने के लिए */
+    header, nav, .navbar, aside, [class*="sidebar"] { 
         display: none !important; 
     }
 
+    /* 2. मुख्य कंटेंट को एकदम स्क्रीन के बीच (Center) में लाने के लिए */
     .hero {
-        position: relative; 
-        padding: 70px 15px 20px 15px; 
-        text-align: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;    /* सब कुछ हॉरिजॉन्टली सेंटर करेगा */
+        justify-content: center; /* सब कुछ वर्टिकली बैलेंस करेगा */
+        text-align: center;      /* टेक्स्ट को बीच में रखेगा */
+        padding: 90px 20px 40px 20px; /* ऊपर 90px स्पेस ताकि बटन और टेक्स्ट आपस में न टकराएं */
         box-sizing: border-box;
         width: 100%;
     }
 
-    
+    /* 3. मेन्यू बटन को एकदम थ्री-डॉट (टॉप-राइट) कोने के पास चिपकाने के लिए */
     .menu-toggle {
         display: inline-block !important; 
         position: absolute;
-        top: 15px;     
-        right: 15px;   
-        padding: 8px 16px;
-        font-size: 16px;
-        z-index: 1000; 
+        top: 15px;      /* ऊपर से एकदम पास */
+        right: 15px;    /* दाईं तरफ एकदम कोने में */
+        padding: 10px 18px;
+        font-size: 15px;
+        z-index: 9999;  /* ताकि बटन हमेशा सबसे ऊपर दिखे */
+        border-radius: 5px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
-    
+    /* हेडिंग और पैराग्राफ को एकदम सेंटर अलाइन रखने के लिए */
     .hero h1 {
-        font-size: 24px;
-        margin-top: 10px;
-    }
-
-    
-    .menu {
-        display: none; 
-        flex-direction: column;
-        gap: 10px;
+        font-size: 26px;
+        margin: 15px auto;
+        display: inline-block;
         width: 100%;
-        max-width: 300px;
-        margin: 20px auto 0 auto;
     }
 
-    
+    .hero p {
+        font-size: 15px;
+        line-height: 1.5;
+        max-width: 90%; /* टेक्स्ट स्क्रीन के कोनों से न चिपके */
+        margin: 10px auto;
+    }
+
+    /* 4. मेन्यू लिंक्स जो बटन दबाने पर खुलेंगे */
+    .menu {
+        display: none; /* जावास्क्रिप्ट के क्लिक करने पर ही खुलेगा */
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        max-width: 280px;
+        margin: 20px auto 0 auto; /* लिंक्स भी सेंटर में रहेंगे */
+    }
+
     .menu a {
         display: block;
         width: 100%;
         padding: 12px;
         box-sizing: border-box;
         text-decoration: none;
-        background-color: #00bee6; 
-        color: #333;
+        background-color: #00bee6; /* आपका सुंदर स्काई ब्लू कलर */
+        color: white;
         font-weight: bold;
         border-radius: 5px;
+        text-align: center;
     }
 }
-
