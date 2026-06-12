@@ -18,6 +18,7 @@ html, body {
     min-height: 100vh;
     padding: 40px 20px;
     box-sizing: border-box;
+    width: 100%;
 }
 
 .hero h1 {
@@ -50,12 +51,6 @@ html, body {
     font-weight: bold;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
-
-.menu a:hover {
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    transform: translateY(-2px);
 }
 
 
@@ -63,30 +58,39 @@ html, body {
     display: none;
 }
 
+
+
 @media screen and (max-width: 768px) {
     
     .hero {
         position: relative;
-        padding-top: 100px; 
+        padding-top: 120px; 
         justify-content: flex-start; 
+        align-items: center; 
+        text-align: center;
     }
 
+    
     .hero h1 {
         font-size: 26px; 
-        margin-top: 20px;
+        margin: 20px auto 10px auto;
+        width: 100%;
+        max-width: 90%;
     }
 
     .hero p {
         font-size: 15px;
         max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    
+
     .menu-toggle {
         display: block !important; 
         position: absolute;
-        top: 15px;
-        right: 15px; 
+        top: 20px;   
+        right: 20px;  
         background-color: #0056b3;
         color: white;
         border: none;
@@ -94,7 +98,7 @@ html, body {
         font-size: 15px;
         border-radius: 5px;
         cursor: pointer;
-        z-index: 9999;
+        z-index: 9999; 
     }
 
     
@@ -103,7 +107,7 @@ html, body {
         flex-direction: column; 
         width: 100%;
         max-width: 280px;
-        margin: 20px auto 0 auto;
+        margin: 25px auto 0 auto;
         gap: 10px;
     }
 
