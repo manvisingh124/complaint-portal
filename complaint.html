@@ -9,18 +9,19 @@
 <div class="container">
     <h1>Register Complaint</h1>
 
-    <form>
+    <form action="https://formspree.io/f/xnjyljnw" method="POST">
+        
         <label>Student Name:</label>
-        <input type="text" required>
+        <input type="text" name="name" required>
 
         <label>Email:</label>
-        <input type="email" required>
+        <input type="email" name="email" required>
 
         <label>University Roll Number:</label>
-        <input type="text" required>
+        <input type="text" name="roll_number" required>
 
         <label>Complaint Category:</label>
-        <select>
+        <select name="category">
             <option>Academic</option>
             <option>Hostel</option>
             <option>Library</option>
@@ -29,7 +30,7 @@
         </select>
 
         <label>Complaint Details:</label>
-        <textarea rows="5"></textarea>
+        <textarea name="complaint" rows="5" required></textarea>
 
         <input type="submit" value="Submit Complaint">
     </form>
