@@ -13,7 +13,7 @@ body{
     background:linear-gradient(-45deg,#667eea,#764ba2,#6dd5ed,#2193b0);
     background-size:400% 400%;
     animation:gradientBG 10s ease infinite;
-    position: relative; /* Naya add kiya taaki menu button sahi position pe rahe */
+    position: relative; 
 }
 
 @keyframes gradientBG{
@@ -26,11 +26,11 @@ body{
     width:420px;
     background:rgba(255,255,255,0.95);
     backdrop-filter:blur(10px);
-    padding: 25px; /* Thoda padding badhaya hai taaki content saaf dikhe */
+    padding: 25px; 
     border-radius:25px;
     box-shadow:0 20px 40px rgba(0,0,0,0.25);
     animation:fadeIn 1s ease;
-    text-align: center; /* Naya add kiya taaki Home page ka content center me rahe */
+    text-align: center; 
 }
 
 @keyframes fadeIn{
@@ -71,10 +71,10 @@ h1{
     text-align:center;
     color:#003366;
     margin-bottom:15px;
-    font-size:32px; /* Mobile screen ke liye thoda adjust kiya */
+    font-size:32px; 
 }
 
-/* NAYA CODE: Subtitle h3 styling jo aapne naya add kiya hai */
+
 h3 {
     text-align: center;
     color: #555;
@@ -95,7 +95,7 @@ label{
     font-weight:600;
     color:#333;
     display: block;
-    text-align: left; /* Form field ke labels left me rahenge */
+    text-align: left; 
 }
 
 input,
@@ -136,7 +136,7 @@ input[type="submit"]:hover{
     transform:translateY(-3px);
 }
 
-/* NAYA CODE: Buttons ko shuru me chhipane aur smooth dropdown animation ke liye */
+
 .menu {
     max-height: 500px;
     opacity: 1;
@@ -144,7 +144,7 @@ input[type="submit"]:hover{
     transition: all 0.5s ease-in-out;
 }
 
-/* NAYA CODE: Menu band hone par ye apply hoga */
+
 .menu.hide {
     max-height: 0px;
     opacity: 0;
