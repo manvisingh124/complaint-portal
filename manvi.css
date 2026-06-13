@@ -1,3 +1,77 @@
+/* सिर्फ मोबाइल स्क्रीन को एकदम सही करने के लिए कोड */
+@media screen and (max-width: 768px) {
+    
+    html, body {
+        width: 100%;
+        overflow-x: hidden; /* बायीं तरफ का एक्स्ट्रा टेक्स्ट छिपाने के लिए */
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero {
+        position: relative !important;
+        padding-top: 140px !important; /* ऊपर बटन के लिए सुरक्षित जगह */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important; /* लाल घेरा: सब कुछ एकदम बीच में लाने के लिए */
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    /* लाल घेरा: BBDU Complaint Portal टेक्स्ट - बिल्कुल बीच में */
+    .hero h1 {
+        font-size: 28px !important; 
+        color: #0d3b66 !important;
+        margin: 10px auto !important;
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .hero p {
+        font-size: 15px !important;
+        max-width: 90% !important;
+        margin: 10px auto !important;
+    }
+
+    /* हरा घेरा: ☰ Menu बटन - एकदम ऊपर दाईं तरफ कोने में थ्री-डॉट के पास */
+    .menu-toggle {
+        display: block !important; 
+        position: absolute !important;
+        top: 20px !important;   
+        right: 20px !important;  
+        background-color: #0056b3 !important; /* सुंदर रॉयल ब्लू कलर */
+        color: white !important;
+        border: none !important;
+        padding: 10px 18px !important;
+        font-size: 15px !important;
+        border-radius: 5px !important;
+        cursor: pointer !important;
+        z-index: 9999 !important; /* सबसे ऊपर तैरता रहेगा */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
+    }
+
+    /* मोबाइल मेन्यू जो बटन दबाने पर नीचे वर्टिकल खुलेगा */
+    .menu {
+        display: none; /* शुरुआत में छिपा रहेगा */
+        flex-direction: column !important; 
+        width: 100% !important;
+        max-width: 280px !important;
+        margin: 25px auto 0 auto !important;
+        gap: 12px !important;
+    }
+
+    .menu a {
+        display: block !important;
+        width: 100% !important;
+        padding: 12px !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+        background-color: #00bee6 !important; /* पुराना स्काई ब्लू बटन कलर */
+        color: white !important;
+        border-radius: 5px !important;
+        text-decoration: none !important;
+    }
+}
 *{
     margin:0;
     padding:0;
@@ -115,78 +189,4 @@ a{
 a:hover{
     transform:translateY(-4px);
     box-shadow:0 8px 20px rgba(0,0,0,0.25);
-}
-/* सिर्फ मोबाइल स्क्रीन को एकदम सही करने के लिए कोड */
-@media screen and (max-width: 768px) {
-    
-    html, body {
-        width: 100%;
-        overflow-x: hidden; /* बायीं तरफ का एक्स्ट्रा टेक्स्ट छिपाने के लिए */
-        margin: 0;
-        padding: 0;
-    }
-
-    .hero {
-        position: relative !important;
-        padding-top: 140px !important; /* ऊपर बटन के लिए सुरक्षित जगह */
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important; /* लाल घेरा: सब कुछ एकदम बीच में लाने के लिए */
-        text-align: center !important;
-        width: 100% !important;
-    }
-
-    /* लाल घेरा: BBDU Complaint Portal टेक्स्ट - बिल्कुल बीच में */
-    .hero h1 {
-        font-size: 28px !important; 
-        color: #0d3b66 !important;
-        margin: 10px auto !important;
-        display: block !important;
-        width: 100% !important;
-    }
-
-    .hero p {
-        font-size: 15px !important;
-        max-width: 90% !important;
-        margin: 10px auto !important;
-    }
-
-    /* हरा घेरा: ☰ Menu बटन - एकदम ऊपर दाईं तरफ कोने में थ्री-डॉट के पास */
-    .menu-toggle {
-        display: block !important; 
-        position: absolute !important;
-        top: 20px !important;   
-        right: 20px !important;  
-        background-color: #0056b3 !important; /* सुंदर रॉयल ब्लू कलर */
-        color: white !important;
-        border: none !important;
-        padding: 10px 18px !important;
-        font-size: 15px !important;
-        border-radius: 5px !important;
-        cursor: pointer !important;
-        z-index: 9999 !important; /* सबसे ऊपर तैरता रहेगा */
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
-    }
-
-    /* मोबाइल मेन्यू जो बटन दबाने पर नीचे वर्टिकल खुलेगा */
-    .menu {
-        display: none; /* शुरुआत में छिपा रहेगा */
-        flex-direction: column !important; 
-        width: 100% !important;
-        max-width: 280px !important;
-        margin: 25px auto 0 auto !important;
-        gap: 12px !important;
-    }
-
-    .menu a {
-        display: block !important;
-        width: 100% !important;
-        padding: 12px !important;
-        box-sizing: border-box !important;
-        text-align: center !important;
-        background-color: #00bee6 !important; /* पुराना स्काई ब्लू बटन कलर */
-        color: white !important;
-        border-radius: 5px !important;
-        text-decoration: none !important;
-    }
 }
