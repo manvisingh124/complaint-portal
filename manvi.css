@@ -1,64 +1,65 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
 }
 
-body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(-45deg, #667eea, #764ba2, #6dd5ed, #2193b0);
-    background-size: 400% 400%;
-    animation: gradientBG 10s ease infinite;
-    position: relative; /* Menu button ko sahi jagah rakhne ke liye */
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(-45deg,#667eea,#764ba2,#6dd5ed,#2193b0);
+    background-size:400% 400%;
+    animation:gradientBG 10s ease infinite;
+    position: relative; /* Naya add kiya taaki menu button sahi position pe rahe */
 }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes gradientBG{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
-.container {
-    width: 420px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+.container{
+    width:420px;
+    background:rgba(255,255,255,0.95);
+    backdrop-filter:blur(10px);
     padding: 25px; /* Thoda padding badhaya hai taaki content saaf dikhe */
-    border-radius: 25px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-    animation: fadeIn 1s ease;
-    text-align: center; /* Home page ke content ko center karne ke liye */
+    border-radius:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    animation:fadeIn 1s ease;
+    text-align: center; /* Naya add kiya taaki Home page ka content center me rahe */
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    to{
+        opacity:1;
+        transform:translateY(0);
     }
 }
 
-/* Home Page Menu Button Styling */
+/* NAYA CODE: Menu Button ko top-right kone me set karne ke liye */
 .menu-btn {
     position: absolute;
     top: 20px;
-    left: 20px;
+    right: 20px;
     background: rgba(255, 255, 255, 0.9);
-    border: none;
-    padding: 10px 18px;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
     border-radius: 12px;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     color: #764ba2;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     transition: 0.3s;
+    z-index: 100;
 }
 
 .menu-btn:hover {
@@ -66,14 +67,14 @@ body {
     background: #ffffff;
 }
 
-h1 {
-    text-align: center;
-    color: #003366;
-    margin-bottom: 15px;
-    font-size: 32px; /* Mobile screen ke liye thoda adjust kiya */
+h1{
+    text-align:center;
+    color:#003366;
+    margin-bottom:15px;
+    font-size:32px; /* Mobile screen ke liye thoda adjust kiya */
 }
 
-/* Subtitle styling jo aapne naya add kiya hai */
+/* NAYA CODE: Subtitle h3 styling jo aapne naya add kiya hai */
 h3 {
     text-align: center;
     color: #555;
@@ -82,75 +83,90 @@ h3 {
     font-weight: 600;
 }
 
-p {
-    text-align: center;
-    color: #666;
-    margin-bottom: 25px;
+p{
+    text-align:center;
+    color:#666;
+    margin-bottom:25px;
     font-size: 14px;
     line-height: 1.5;
 }
 
-label {
-    font-weight: 600;
-    color: #333;
+label{
+    font-weight:600;
+    color:#333;
     display: block;
-    text-align: left; /* Form fields ke labels left me rahenge */
+    text-align: left; /* Form field ke labels left me rahenge */
 }
 
 input,
 select,
-textarea {
-    width: 100%;
-    padding: 14px;
-    margin-top: 6px;
-    margin-bottom: 18px;
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    font-size: 15px;
-    transition: 0.3s;
+textarea{
+    width:100%;
+    padding:14px;
+    margin-top:6px;
+    margin-bottom:18px;
+    border:2px solid #ddd;
+    border-radius:12px;
+    font-size:15px;
+    transition:0.3s;
 }
 
 input:focus,
 select:focus,
-textarea:focus {
-    border-color: #667eea;
-    box-shadow: 0 0 10px rgba(102,126,234,0.4);
-    outline: none;
+textarea:focus{
+    border-color:#667eea;
+    box-shadow:0 0 10px rgba(102,126,234,0.4);
+    outline:none;
 }
 
-input[type="submit"] {
-    width: 100%;
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+input[type="submit"]{
+    width:100%;
+    background:linear-gradient(45deg,#667eea,#764ba2);
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:12px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-input[type="submit"]:hover {
-    transform: translateY(-3px);
+input[type="submit"]:hover{
+    transform:translateY(-3px);
 }
 
-/* Links / Buttons Styling */
-a {
-    display: block;
-    text-decoration: none;
-    color: white;
-    background: linear-gradient(45deg, #4facfe, #00c6ff);
-    padding: 15px;
-    margin: 12px 0;
-    text-align: center;
-    border-radius: 12px;
-    font-size: 17px;
-    font-weight: bold;
-    transition: 0.3s;
+/* NAYA CODE: Buttons ko shuru me chhipane aur smooth dropdown animation ke liye */
+.menu {
+    max-height: 500px;
+    opacity: 1;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
 }
 
-a:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+/* NAYA CODE: Menu band hone par ye apply hoga */
+.menu.hide {
+    max-height: 0px;
+    opacity: 0;
+    pointer-events: none;
+    margin: 0;
+}
+
+a{
+    display:block;
+    text-decoration:none;
+    color:white;
+    background:linear-gradient(45deg,#4facfe,#00c6ff);
+    padding:15px;
+    margin:12px 0;
+    text-align:center;
+    border-radius:12px;
+    font-size:17px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+a:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
 }

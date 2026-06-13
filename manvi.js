@@ -2,35 +2,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.querySelector("form");
 
-    form.addEventListener("submit", function (event) {
+    // Agar kisi page par form na ho (jaise Home page), toh error na aaye isliye check kiya
+    if (form) {
+        form.addEventListener("submit", function (event) {
 
-        let name = document.querySelector('input[name="name"]').value.trim();
-        let email = document.querySelector('input[name="email"]').value.trim();
-        let complaint = document.querySelector('textarea[name="complaint"]').value.trim();
+            let name = document.querySelector('input[name="name"]').value.trim();
+            let email = document.querySelector('input[name="email"]').value.trim();
+            let complaint = document.querySelector('textarea[name="complaint"]').value.trim();
 
-        if (name === "" || email === "" || complaint === "") {
-            alert("Please fill all required fields!");
-            event.preventDefault();
-            return;
-        }
+            if (name === "" || email === "" || complaint === "") {
+                alert("Please fill all required fields!");
+                event.preventDefault();
+                return;
+            }
 
-        if (!email.includes("@")) {
-            alert("Please enter a valid email address!");
-            event.preventDefault();
-            return;
-        }
+            if (!email.includes("@")) {
+                alert("Please enter a valid email address!");
+                event.preventDefault();
+                return;
+            }
 
-        alert("Complaint Submitted Successfully!");
-    });
+            alert("Complaint Submitted Successfully!");
+        });
+    }
 
 });
+
+// Naya aur updated toggleMenu function jo smoothly dropdown chalayega
 function toggleMenu() {
-    var menu = document.getElementById("mobileMenu");
+    // Humne HTML me id="dropdownMenu" rakha tha, usey fetch kiya
+    var menu = document.getElementById("dropdownMenu");
     
-    
-    if (menu.style.display === "block" || window.getComputedStyle(menu).display === "block") {
-        menu.style.display = "none";
-    } else {
-        menu.style.display = "block";
+    if (menu) {
+        // Agar '.hide' class pehle se hai toh hata dega (menu khul jayega)
+        // Aur agar nahi hai toh jod dega (menu band ho jayega)
+        menu.classList.toggle("hide");
     }
 }
