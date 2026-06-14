@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.querySelector("form");
 
-    
     if (form) {
         form.addEventListener("submit", function (event) {
 
@@ -22,18 +21,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            
             if (window.location.pathname.includes("complaint.html")) {
                 let randomID = "BBDU-" + Math.floor(1000 + Math.random() * 9000);
-                alert("Complaint Submitted Successfully!\n\nYour Complaint ID is: " + randomID + "\n\nPlease note down this ID to track status.");
-            } else {
                 
+                
+                localStorage.setItem("savedComplaintID", randomID);
+
+                
+                navigator.clipboard.writeText(randomID).then(() => {
+                    alert("Complaint Submitted Successfully!\n\nYour Complaint ID is: " + randomID + "\n\n(This ID has been automatically copied to your clipboard!)");
+                }).catch(err => {
+                    alert("Complaint Submitted Successfully!\n\nYour Complaint ID is: " + randomID + "\n\nPlease note down this ID to track status.");
+                });
+
+            } else {
                 alert("Complaint Submitted Successfully!");
             }
         });
     }
 
-    
     if (window.location.pathname.includes("status.html")) {
         const statusInput = document.querySelector("input[type='text']");
         const statusBtn = document.querySelector("input[type='submit']") || document.querySelector("button");
@@ -49,17 +55,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-            
-                alert("Status for ID (" + enteredID + "):\n\nYour complaint has been received and it is currently 'UNDER PROCESS' by the University Administration.");
+                
+                let actualSavedID = localStorage.getItem("savedComplaintID");
+
+                
+                if (actualSavedID && enteredID === actualSavedID) {
+                    alert("Status for ID (" + enteredID + "):\n\nYour complaint has been received and it is currently 'UNDER PROCESS' by the University Administration.");
+                } else {
+                    alert("Error:\n\nNo complaint found with ID '" + enteredID + "'. Please check your ID and try again.");
+                }
             });
         }
     }
 
 });
 
-
 function toggleMenu() {
-    
     var menu = document.getElementById("dropdownMenu");
     
     if (menu) {
