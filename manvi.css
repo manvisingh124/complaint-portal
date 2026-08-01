@@ -189,32 +189,44 @@ a:hover {
 }
 
 /* ==========================================
-   TOP LEFT BACK ARROW BUTTON (New Code Added)
+   HEADER & BACK BUTTON STYLES (Updated)
    ========================================== */
 
-.container {
-    position: relative; /* Top-left absolute position alignment ke liye */
-    padding-top: 55px;  /* Heading aur Arrow ke beech space ke liye */
-}
-
-a.back-btn {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    margin: 0;
+/* Button aur Heading ko ek sath inline me lane ke liye */
+.header-box {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    gap: 15px; /* Button aur Heading ke beech ka space */
+    margin-bottom: 20px;
+}
+
+/* Header ke andar heading ki margin reset */
+.header-box h1 {
+    margin-bottom: 0;
+    font-size: 26px;
+    text-align: left;
+}
+
+/* Back Button Alignments & Arrow Center Fix */
+a.back-btn {
+    position: static; /* Header box ke andar flex positioning ke liye */
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    border-radius: 50%; /* Pure gol circle ke liye */
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
     font-size: 20px;
+    line-height: 0; /* Arrow ko exact center lane ke liye */
     background: linear-gradient(45deg, #4facfe, #00c6ff);
     color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 a.back-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
