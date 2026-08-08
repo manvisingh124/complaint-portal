@@ -7,9 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let name = document.querySelector('input[name="name"]').value.trim();
             let email = document.querySelector('input[name="email"]').value.trim();
+            const rollNumber = document
+              .querySelector('input[name="roll_number"]')
+              .value.trim();
             let complaint = document.querySelector('textarea[name="complaint"]').value.trim();
 
-            if (name === "" || email === "" || complaint === "") {
+            if (name === "" || email === "" || rollNumber === "" || complaint === "") {
                 alert("Please fill all required fields!");
                 event.preventDefault();
                 return;
@@ -24,10 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
             if (window.location.pathname.includes("complaint.html")) {
                 let randomID = "BBDU-" + Math.floor(1000 + Math.random() * 9000);
                 
+                document.getElementById("complaint_id").value = randomID;
                 
                 localStorage.setItem("savedComplaintID", randomID);
 
-                
                 navigator.clipboard.writeText(randomID).then(() => {
                     alert("Complaint Submitted Successfully!\n\nYour Complaint ID is: " + randomID + "\n\n(This ID has been automatically copied to your clipboard!)");
                 }).catch(err => {
@@ -55,10 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                
                 let actualSavedID = localStorage.getItem("savedComplaintID");
 
-                
                 if (actualSavedID && enteredID === actualSavedID) {
                     alert("Status for ID (" + enteredID + "):\n\nYour complaint has been received and it is currently 'UNDER PROCESS' by the University Administration.");
                 } else {
