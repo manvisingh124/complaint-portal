@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}BBDU Grievance Portal{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'landing' %}" class="brand-logo">
+            <div class="brand-icon">🎓</div>
+            <div class="brand-text">
+                <span class="brand-title">BBDU</span>
+                <span class="brand-subtitle">Grievance Portal</span>
+            </div>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="{% url 'landing' %}" class="nav-link">About</a></li>
+            <li><a href="{% url 'landing' %}#how-it-works" class="nav-link">How It Works</a></li>
+            {% if user.is_authenticated %}
+                {% if user.is_student %}
+                    <li><a href="{% url 'student_dashboard' %}" class="nav-link">Student Dashboard</a></li>
+                {% else %}
+                    <li><a href="{% url 'staff_dashboard' %}" class="nav-link">Staff Portal</a></li>
+                {% endif %}
+                <li><span style="color: var(--text-muted); font-size: 0.85rem;">Hi, <strong>{{ user.username }}</strong></span></li>
+                <li><a href="javascript:void(0);" onclick="handleLogout()" class="btn btn-outline" style="padding: 6px 14px;">Logout</a></li>
+                <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            {% else %}
+                <li><a href="{% url 'student_auth' %}" class="btn btn-primary" style="padding: 7px 18px; font-size: 0.8rem;">Student Portal</a></li>
+                <li><a href="{% url 'staff_login' %}" class="btn btn-outline" style="padding: 7px 18px; font-size: 0.8rem;">Staff Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        async function handleLogout() {
+            try {
+                const SUPABASE_URL = "{{ SUPABASE_URL }}";
+                const SUPABASE_ANON_KEY = "{{ SUPABASE_ANON_KEY }}";
+                if (window.supabase && SUPABASE_URL && SUPABASE_ANON_KEY) {
+                    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    await sb.auth.signOut({ scope: 'global' });
+                }
+            } catch (e) {
+                console.log("Supabase signout:", e);
+            }
+            try {
+                localStorage.clear();
+                sessionStorage.clear();
+            } catch (e) {}
+
+            window.location.href = "{% url 'logout' %}";
+        }
+    </script>
+
+    <div class="main-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Babu Banarasi Das University (BBDU). All rights reserved. | Student Grievance & Complaint Management System</p>
+    </footer>
+</body>
+</html>

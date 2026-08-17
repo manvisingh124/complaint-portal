@@ -1,0 +1,37 @@
+# ==========================================
+# Git Ignore Rules — BBDU Grievance Portal
+# ==========================================
+
+# 1. Environment & API Secrets (CRITICAL)
+.env
+*.env
+!.env.example
+
+# 2. Local Database & Cache
+*.sqlite3
+db.sqlite3
+
+# 3. Python Cache & Virtual Envs
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# 4. User Uploaded Attachments & Static Root
+media/
+staticfiles/
+*.log
+
+# 5. OS & IDE System Files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo

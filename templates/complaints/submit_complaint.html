@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Submit Grievance — BBDU Grievance Portal{% endblock %}
+
+{% block content %}
+<div style="max-width: 680px; margin: 20px auto;">
+    <div class="card" style="padding: 36px;">
+        <div style="margin-bottom: 24px;">
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-blue); text-transform: uppercase;">FORMAL SUBMISSION</span>
+            <h1 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-navy); margin-top: 4px;">Submit a New Grievance</h1>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Please fill in accurate details so the university department can address your concern effectively.</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                    <label class="form-label">Complaint Category</label>
+                    {{ form.category }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Target Department</label>
+                    {{ form.department }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Priority Level</label>
+                    {{ form.priority }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Subject / Title</label>
+                {{ form.subject }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Detailed Description</label>
+                {{ form.description }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Attachments (Optional)</label>
+                <input type="file" name="attachments" multiple class="form-input" accept="image/*,.pdf,.doc,.docx" style="padding: 10px;">
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px;">You may attach up to 3 files (Images or PDF documents).</span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 28px;">
+                <a href="{% url 'student_dashboard' %}" class="btn btn-outline">Cancel</a>
+                <button type="submit" class="btn btn-primary" style="padding: 12px 28px;">Submit Grievance</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

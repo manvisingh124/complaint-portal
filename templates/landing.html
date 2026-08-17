@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block title %}BBDU Grievance Portal — Your Voice. Our Response.{% endblock %}
+
+{% block content %}
+<div class="hero-grid">
+    <div>
+        <div class="hero-subtitle">BBDU STUDENT SERVICES</div>
+        <h1 class="hero-title">
+            Your Voice.<br>
+            <span class="blue-highlight">Our Response.</span>
+        </h1>
+        <p class="hero-desc">
+            A simple and transparent way for BBDU students to submit complaints, track their progress, and stay informed until resolution.
+        </p>
+        <div class="hero-actions">
+            {% if user.is_authenticated %}
+                <a href="{% url 'student_dashboard' %}" class="btn btn-primary" style="padding: 12px 28px; font-size: 0.9rem;">Go to Dashboard</a>
+            {% else %}
+                <a href="{% url 'student_auth' %}" class="btn btn-primary" style="padding: 12px 28px; font-size: 0.9rem;">Student Login / Register →</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Live Complaint Status Card from Database -->
+    <div class="hero-sample-card">
+        {% if active_complaint %}
+            <div class="card-sample-header">
+                <span class="card-sample-label">
+                    {% if user.is_authenticated %}My Active Complaint{% else %}Complaint Status{% endif %}
+                </span>
+                <span class="badge badge-{{ active_complaint.status|slugify }}">
+                    {{ active_complaint.status }}
+                </span>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <span class="card-sample-id">{{ active_complaint.complaint_id }}</span>
+                <h3 class="card-sample-title">{{ active_complaint.subject }}</h3>
+                <span class="card-sample-meta">
+                    {{ active_complaint.category }} • {{ active_complaint.priority }} Priority
+                </span>
+            </div>
+
+            <!-- Dynamic Progress Timeline Bar -->
+            <div style="margin: 24px 0 16px 0;">
+                <div style="height: 4px; background: #e2e8f0; border-radius: 99px; overflow: hidden; position: relative;">
+                    <div style="width: {{ active_complaint.get_progress_percentage }}%; height: 100%; background: var(--accent-blue); border-radius: 99px;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-top: 10px; font-weight: 600;">
+                    <span>Submitted</span>
+                    <span style="color: var(--primary-navy); font-weight: 700;">{{ active_complaint.status }}</span>
+                    <span>Resolved</span>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #64748b;">
+                <span>✓ Complaint securely recorded</span>
+                {% if user.is_authenticated and user.is_student %}
+                    <a href="{% url 'student_detail' active_complaint.complaint_id %}" style="font-weight: 700; color: var(--primary-navy); text-decoration: none;">View Detail →</a>
+                {% else %}
+                    <span style="font-weight: 700; color: var(--primary-navy);">BBDU</span>
+                {% endif %}
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 20px;">
+                <span class="card-sample-label">Grievance Portal</span>
+                <h3 class="card-sample-title" style="margin-top: 8px;">No Complaints Filed Yet</h3>
+                <p style="color: #64748b; font-size: 0.85rem; margin: 12px 0;">Be the first to submit a grievance through the BBDU portal.</p>
+                <a href="{% url 'student_auth' %}" class="btn btn-primary" style="padding: 8px 18px; font-size: 0.8rem;">Submit Grievance</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Live Database Stats Counter Grid -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-number">{{ active_count }}</div>
+        <div class="stat-header">Active Grievances</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ resolved_rate }}%</div>
+        <div class="stat-header">Resolution Rate</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ categories_count }}</div>
+        <div class="stat-header">Complaint Categories</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">{{ total_complaints }}</div>
+        <div class="stat-header">Total Grievances Filed</div>
+    </div>
+</div>
+
+<!-- Value Propositions — Left Aligned Heading -->
+<div style="margin: 80px 0;">
+    <div style="text-align: left; margin-bottom: 48px;">
+        <span class="hero-subtitle">ABOUT THE PORTAL</span>
+        <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--primary-navy); margin-top: 4px;">A better way to raise concerns.</h2>
+        <p style="color: #64748b; margin-top: 8px; font-size: 1rem; max-width: 650px;">
+            The BBDU Grievance Portal provides students with a centralized platform to communicate concerns and follow their resolution.
+        </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+        <div class="card">
+            <div style="font-size: 2rem; margin-bottom: 16px;">📝</div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: #0f172a;">Easy Submission</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">Submit your complaint with the relevant category, priority, subject, and description easily.</p>
+        </div>
+        <div class="card">
+            <div style="font-size: 2rem; margin-bottom: 16px;">🔍</div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: #0f172a;">Track Progress</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">Monitor the status of your complaint from initial submission all the way through to final resolution.</p>
+        </div>
+        <div class="card">
+            <div style="font-size: 2rem; margin-bottom: 16px;">🔒</div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: #0f172a;">Secure Access</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">Your grievances are accessible securely through your authenticated BBDU student account.</p>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section — Spaced Out -->
+<div id="how-it-works" class="card" style="padding: 44px; margin: 80px 0;">
+    <span class="hero-subtitle">HOW IT WORKS</span>
+    <h2 style="font-size: 2rem; font-weight: 800; color: var(--primary-navy); margin-bottom: 36px;">From complaint to resolution.</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px;">
+        <div>
+            <span style="font-size: 0.8rem; font-weight: 800; color: #94a3b8; display: block; margin-bottom: 8px;">01</span>
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #0f172a;">Login</h4>
+            <p style="color: #64748b; font-size: 0.875rem;">Access your student account securely.</p>
+        </div>
+        <div>
+            <span style="font-size: 0.8rem; font-weight: 800; color: #94a3b8; display: block; margin-bottom: 8px;">02</span>
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #0f172a;">Submit</h4>
+            <p style="color: #64748b; font-size: 0.875rem;">Describe your concern and submit your complaint.</p>
+        </div>
+        <div>
+            <span style="font-size: 0.8rem; font-weight: 800; color: #94a3b8; display: block; margin-bottom: 8px;">03</span>
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #0f172a;">Track</h4>
+            <p style="color: #64748b; font-size: 0.875rem;">Check the latest status from your dashboard.</p>
+        </div>
+        <div>
+            <span style="font-size: 0.8rem; font-weight: 800; color: #94a3b8; display: block; margin-bottom: 8px;">04</span>
+            <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #0f172a;">Resolve</h4>
+            <p style="color: #64748b; font-size: 0.875rem;">Follow the complaint until it is resolved.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom CTA Banner — Spaced Out -->
+<div style="background: var(--primary-navy); border-radius: 20px; padding: 44px; color: #ffffff; display: flex; justify-content: space-between; align-items: center; margin: 80px 0 60px 0;">
+    <div>
+        <span style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #93c5fd;">HAVE A CONCERN?</span>
+        <h2 style="font-size: 2rem; font-weight: 800; margin-top: 6px;">Make your voice heard.</h2>
+        <p style="color: #cbd5e1; font-size: 0.95rem; margin-top: 6px;">Submit your complaint through the BBDU Grievance Portal.</p>
+    </div>
+    <a href="{% url 'student_auth' %}" class="btn btn-outline" style="background: #ffffff; color: var(--primary-navy); font-weight: 700; padding: 14px 28px;">Get Started →</a>
+</div>
+{% endblock %}

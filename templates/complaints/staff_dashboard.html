@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}Staff Dashboard — BBDU Grievance Portal{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+    <div>
+        <h1 style="font-size: 2rem; font-weight: 800; color: var(--primary-navy);">Staff Dashboard</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Department Queue: <strong>{{ user.department|default:"All Departments (Admin View)" }}</strong>
+        </p>
+    </div>
+</div>
+
+<!-- 4 Stat Summary Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-header">
+            <span>New / Open</span>
+            <span class="stat-dot orange"></span>
+        </div>
+        <div class="stat-number">{{ open_count }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-header">
+            <span>In Progress</span>
+            <span class="stat-dot blue"></span>
+        </div>
+        <div class="stat-number">{{ in_progress_count }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-header">
+            <span>Resolved</span>
+            <span class="stat-dot green"></span>
+        </div>
+        <div class="stat-number">{{ resolved_today_count }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-header">
+            <span>High Priority</span>
+            <span class="stat-dot red"></span>
+        </div>
+        <div class="stat-number">{{ high_priority_count }}</div>
+    </div>
+</div>
+
+<!-- Complaints List Card -->
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--primary-navy);">Grievances Queue</h3>
+
+        <!-- Filter Form -->
+        <form method="get" style="display: flex; gap: 12px;">
+            <select name="status" class="form-select" onchange="this.form.submit()" style="padding: 6px 12px; font-size: 0.85rem;">
+                <option value="">All Statuses</option>
+                <option value="Submitted" {% if selected_status == 'Submitted' %}selected{% endif %}>Submitted</option>
+                <option value="Under Review" {% if selected_status == 'Under Review' %}selected{% endif %}>Under Review</option>
+                <option value="In Progress" {% if selected_status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                <option value="Resolved" {% if selected_status == 'Resolved' %}selected{% endif %}>Resolved</option>
+            </select>
+        </form>
+    </div>
+
+    {% if complaints %}
+        <div class="table-container">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Complaint ID</th>
+                        <th>Student Name</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Submitted Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in complaints %}
+                    <tr>
+                        <td style="font-weight: 700; color: var(--primary-navy);">{{ c.complaint_id }}</td>
+                        <td style="font-weight: 600;">{{ c.student.get_full_name|default:c.student.username }}</td>
+                        <td>{{ c.category }}</td>
+                        <td>
+                            {% if c.priority == 'High' %}<span class="badge badge-high">High</span>
+                            {% elif c.priority == 'Medium' %}<span class="badge badge-medium">Medium</span>
+                            {% else %}<span class="badge badge-low">Low</span>{% endif %}
+                        </td>
+                        <td>
+                            {% if c.status == 'Submitted' %}<span class="badge badge-submitted">Submitted</span>
+                            {% elif c.status == 'Under Review' %}<span class="badge badge-under-review">Under Review</span>
+                            {% elif c.status == 'In Progress' %}<span class="badge badge-in-progress">In Progress</span>
+                            {% elif c.status == 'Resolved' %}<span class="badge badge-resolved">Resolved</span>
+                            {% else %}<span class="badge badge-rejected">{{ c.status }}</span>{% endif %}
+                        </td>
+                        <td style="color: var(--text-muted); font-size: 0.85rem;">{{ c.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'staff_detail' c.complaint_id %}" class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem;">Review Ticket</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+            <div style="font-size: 3rem; margin-bottom: 12px;">✅</div>
+            <h4 style="font-size: 1.1rem; font-weight: 700;">No pending complaints in queue</h4>
+            <p style="font-size: 0.9rem; margin-top: 4px;">All grievances in your department have been reviewed or resolved.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

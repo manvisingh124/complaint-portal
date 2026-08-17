@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Access — BBDU Grievance Portal{% endblock %}
+
+{% block content %}
+<div style="max-width: 480px; margin: 30px auto;">
+    <div class="card" style="padding: 36px; border-radius: 20px;">
+        <div style="text-align: center; margin-bottom: 24px;">
+            <span style="font-size: 0.75rem; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 1.2px;">STUDENT PORTAL</span>
+            <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-navy); margin-top: 4px;">Student Access</h2>
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 4px;">Sign in or create your student account to submit grievances.</p>
+        </div>
+
+        <!-- Google OAuth Integration Button -->
+        <div style="margin-bottom: 20px;">
+            <button type="button" onclick="signInWithGoogle()" class="btn btn-outline" style="width: 100%; padding: 11px; font-size: 0.875rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; border-color: #cbd5e1; background: #ffffff; cursor: pointer;">
+                <svg width="18" height="18" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                <span>Continue with Google (BBDU Email)</span>
+            </button>
+        </div>
+
+        <div style="display: flex; align-items: center; margin: 24px 0; color: #94a3b8; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">
+            <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
+            <span style="padding: 0 12px;">or email credentials</span>
+            <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
+        </div>
+
+        <!-- Segmented Tab Switcher -->
+        <div style="display: flex; background: #f1f5f9; padding: 4px; border-radius: 10px; margin-bottom: 24px; border: 1px solid #e2e8f0;">
+            <button id="tab-btn-login" onclick="switchAuthTab('login')" type="button" style="flex: 1; padding: 9px; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+                Sign In
+            </button>
+            <button id="tab-btn-register" onclick="switchAuthTab('register')" type="button" style="flex: 1; padding: 9px; border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+                Create Account
+            </button>
+        </div>
+
+        <!-- Tab 1: Sign In Form -->
+        <div id="auth-panel-login">
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="login">
+                
+                <div class="form-group">
+                    <label class="form-label">Username or Email</label>
+                    {{ login_form.username }}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    {{ login_form.password }}
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 0.95rem; margin-top: 8px;">Sign In to Portal</button>
+            </form>
+        </div>
+
+        <!-- Tab 2: Register Form -->
+        <div id="auth-panel-register" style="display: none;">
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="register">
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label class="form-label">First Name</label>
+                        {{ register_form.first_name }}
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name</label>
+                        {{ register_form.last_name }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Choose Username</label>
+                    {{ register_form.username }}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">University Email (@bbdu.ac.in only)</label>
+                    {{ register_form.email }}
+                    {% if register_form.email.errors %}
+                        <div style="color: #ef4444; font-size: 0.78rem; font-weight: 600; margin-top: 4px;">
+                            {{ register_form.email.errors.0 }}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Enrollment Number</label>
+                    {{ register_form.enrollment_no }}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Department / Course</label>
+                    {{ register_form.department }}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    {{ register_form.password1 }}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    {{ register_form.password2 }}
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 0.95rem; margin-top: 8px;">Create Student Account</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const SUPABASE_URL = "{{ SUPABASE_URL }}";
+    const SUPABASE_ANON_KEY = "{{ SUPABASE_ANON_KEY }}";
+    const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+    // Auto-detect Supabase OAuth Callback only when returning from Google OAuth redirect
+    const hasOAuthCallback = window.location.hash.includes('access_token=') || window.location.search.includes('code=');
+    if (supabaseClient && hasOAuthCallback) {
+        supabaseClient.auth.getSession().then(({ data: { session } }) => {
+            if (session && session.user) {
+                syncSupabaseUserWithDjango(session.user);
+            }
+        });
+
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (session && session.user && event === 'SIGNED_IN') {
+                syncSupabaseUserWithDjango(session.user);
+            }
+        });
+    }
+
+    async function syncSupabaseUserWithDjango(supabaseUser) {
+        const email = supabaseUser.email;
+        const fullName = supabaseUser.user_metadata?.full_name || supabaseUser.user_metadata?.name || '';
+        
+        try {
+            const resp = await fetch('/accounts/supabase-callback/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    full_name: fullName
+                })
+            });
+            const result = await resp.json();
+            if (result.status === 'success') {
+                window.location.href = result.redirect_url;
+            } else {
+                alert("BBDU Access Error: " + result.message);
+                if (supabaseClient) await supabaseClient.auth.signOut();
+            }
+        } catch (e) {
+            console.error("Supabase sync error:", e);
+        }
+    }
+
+    async function signInWithGoogle() {
+        if (!supabaseClient) {
+            alert("Supabase SDK initialization pending.");
+            return;
+        }
+        try {
+            const { data, error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    queryParams: {
+                        hd: 'bbdu.ac.in' // Restrict Google OAuth prompt to official @bbdu.ac.in domain
+                    },
+                    redirectTo: window.location.origin + '/accounts/student/'
+                }
+            });
+            if (error) {
+                alert("Google OAuth Error: " + error.message);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    function switchAuthTab(tab) {
+        const loginPanel = document.getElementById('auth-panel-login');
+        const registerPanel = document.getElementById('auth-panel-register');
+        const loginBtn = document.getElementById('tab-btn-login');
+        const registerBtn = document.getElementById('tab-btn-register');
+
+        if (tab === 'login') {
+            loginPanel.style.display = 'block';
+            registerPanel.style.display = 'none';
+            loginBtn.style.background = '#ffffff';
+            loginBtn.style.color = '#0f2a4a';
+            loginBtn.style.boxShadow = '0 2px 6px rgba(0,0,0,0.06)';
+            registerBtn.style.background = 'transparent';
+            registerBtn.style.color = '#64748b';
+            registerBtn.style.boxShadow = 'none';
+        } else {
+            loginPanel.style.display = 'none';
+            registerPanel.style.display = 'block';
+            registerBtn.style.background = '#ffffff';
+            registerBtn.style.color = '#0f2a4a';
+            registerBtn.style.boxShadow = '0 2px 6px rgba(0,0,0,0.06)';
+            loginBtn.style.background = 'transparent';
+            loginBtn.style.color = '#64748b';
+            loginBtn.style.boxShadow = 'none';
+        }
+    }
+
+    // Initialize active tab from server context
+    const initialTab = "{{ active_tab }}";
+    switchAuthTab(initialTab || 'login');
+</script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Student Account — BBDU Grievance Portal{% endblock %}
+
+{% block content %}
+<div style="max-width: 520px; margin: 30px auto;">
+    <div class="card" style="padding: 32px;">
+        <div style="text-align: center; margin-bottom: 24px;">
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-blue); text-transform: uppercase;">NEW REGISTRATION</span>
+            <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--primary-navy); margin-top: 4px;">Create Student Account</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Register your official BBDU details to submit grievances.</p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Choose Username</label>
+                {{ form.username }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">University Email</label>
+                {{ form.email }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Enrollment Number</label>
+                {{ form.enrollment_no }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Department / Course</label>
+                {{ form.department }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                {{ form.password1 }}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Confirm Password</label>
+                {{ form.password2 }}
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 8px;">Create Account</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 20px; font-size: 0.85rem; color: var(--text-muted);">
+            Already registered? <a href="{% url 'student_login' %}" style="color: var(--primary-navy); font-weight: 700;">Student Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
