@@ -68,7 +68,7 @@ def sync_complaint_to_supabase(complaint):
 
 
 def fetch_live_supabase_complaints(student_id=None):
-    """Fetches live complaint records directly from Supabase Cloud Database REST API and syncs ORM state."""
+    """Fetches live complaint records directly from Supabase Cloud Database REST API and syncs ORM state safely."""
     from complaints.models import Complaint
     try:
         url, headers = get_supabase_config()
@@ -83,12 +83,17 @@ def fetch_live_supabase_complaints(student_id=None):
             data = res.json()
             supabase_complaint_ids = [item['complaint_id'] for item in data]
             
-            # Remove any records deleted directly in Supabase Dashboard
-            if student_id:
-                Complaint.objects.filter(student_id=student_id).exclude(complaint_id__in=supabase_complaint_ids).delete()
-            else:
-                Complaint.objects.exclude(complaint_id__in=supabase_complaint_ids).delete()
+            # Safely sync local ORM cache if local table exists and USE_SUPABASE_DB is False
+            use_supabase_db = getattr(settings, 'USE_SUPABASE_DB', False)
+            if not use_supabase_db:
+                try:
+                    if student_id:
+                        Complaint.objects.filter(student_id=student_id).exclude(complaint_id__in=supabase_complaint_ids).delete()
+                    else:
+                        Complaint.objects.exclude(complaint_id__in=supabase_complaint_ids).delete()
+                except Exception:
+                    pass
             return data
     except Exception as e:
-        print(f"Supabase Fetch/Sync Error: {e}")
+        pass
     return None
