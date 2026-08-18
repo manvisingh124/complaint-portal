@@ -3,7 +3,7 @@ services:
     name: complaint-portal
     env: python
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
-    startCommand: python manage.py migrate --noinput && gunicorn complaint_portal.wsgi:application
+    startCommand: python manage.py migrate --fake-initial --noinput && gunicorn complaint_portal.wsgi:application
     envVars:
       - key: PYTHON_VERSION
         value: 3.13.0
