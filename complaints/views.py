@@ -7,21 +7,30 @@ from .forms import ComplaintForm, StatusUpdateForm, FeedbackForm
 from .supabase_sync import fetch_live_supabase_complaints
 
 def landing_page(request):
-    fetch_live_supabase_complaints()
+    try:
+        fetch_live_supabase_complaints()
+    except Exception:
+        pass
 
-    total_complaints = Complaint.objects.count()
-    resolved_count = Complaint.objects.filter(status__in=['Resolved', 'Closed']).count()
-    active_count = Complaint.objects.filter(status__in=['Submitted', 'Under Review', 'In Progress']).count()
-    categories_count = len(Complaint.CATEGORY_CHOICES)
+    try:
+        total_complaints = Complaint.objects.count()
+        resolved_count = Complaint.objects.filter(status__in=['Resolved', 'Closed']).count()
+        active_count = Complaint.objects.filter(status__in=['Submitted', 'Under Review', 'In Progress']).count()
+        categories_count = len(Complaint.CATEGORY_CHOICES)
+        resolved_rate = int((resolved_count / total_complaints) * 100) if total_complaints > 0 else 100
 
-    resolved_rate = int((resolved_count / total_complaints) * 100) if total_complaints > 0 else 100
-
-    # Fetch active complaint: prioritize logged in user's complaint if available
-    active_complaint = None
-    if request.user.is_authenticated and request.user.is_student():
-        active_complaint = Complaint.objects.filter(student=request.user).first()
-    if not active_complaint:
-        active_complaint = Complaint.objects.first()
+        active_complaint = None
+        if request.user.is_authenticated and request.user.is_student():
+            active_complaint = Complaint.objects.filter(student=request.user).first()
+        if not active_complaint:
+            active_complaint = Complaint.objects.first()
+    except Exception:
+        total_complaints = 0
+        resolved_count = 0
+        active_count = 0
+        categories_count = 6
+        resolved_rate = 100
+        active_complaint = None
 
     context = {
         'total_complaints': total_complaints,
