@@ -12,6 +12,21 @@ class Complaint(models.Model):
         ('Other', 'Other'),
     )
 
+    DEPARTMENT_CHOICES = (
+        ('School of Engineering', 'School of Engineering'),
+        ('School of Management', 'School of Management'),
+        ('School of Computer Applications', 'School of Computer Applications'),
+        ('School of Pharmacy', 'School of Pharmacy'),
+        ('School of Allied Health Sciences', 'School of Allied Health Sciences'),
+        ('School of Hotel Management', 'School of Hotel Management'),
+        ('School of Architecture', 'School of Architecture'),
+        ('School of Mass Communication', 'School of Mass Communication'),
+        ('School of Legal Studies', 'School of Legal Studies'),
+        ('School of Basic Sciences', 'School of Basic Sciences'),
+        ('School of Education', 'School of Education'),
+        ('Other / Administration', 'Other / Administration'),
+    )
+
     PRIORITY_CHOICES = (
         ('Low', 'Low Priority'),
         ('Medium', 'Medium Priority'),
@@ -30,7 +45,7 @@ class Complaint(models.Model):
     complaint_id = models.CharField(max_length=30, unique=True, editable=False)
     student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='submitted_complaints')
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
-    department = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Faculty / Teaching', help_text="Target Department for grievance processing")
+    department = models.CharField(max_length=80, choices=DEPARTMENT_CHOICES, default='School of Engineering', help_text="Target Department/School for grievance processing")
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='Medium')
     subject = models.CharField(max_length=150)
     description = models.TextField(max_length=2000)

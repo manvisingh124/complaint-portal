@@ -9,12 +9,18 @@ class CustomUser(AbstractUser):
     )
     
     DEPARTMENT_CHOICES = (
-        ('Faculty / Teaching', 'Faculty / Teaching'),
-        ('Examination', 'Examination'),
-        ('Administration', 'Administration'),
-        ('Infrastructure', 'Infrastructure'),
-        ('Hostel / Accommodation', 'Hostel / Accommodation'),
-        ('Other', 'Other'),
+        ('School of Engineering', 'School of Engineering'),
+        ('School of Management', 'School of Management'),
+        ('School of Computer Applications', 'School of Computer Applications'),
+        ('School of Pharmacy', 'School of Pharmacy'),
+        ('School of Allied Health Sciences', 'School of Allied Health Sciences'),
+        ('School of Hotel Management', 'School of Hotel Management'),
+        ('School of Architecture', 'School of Architecture'),
+        ('School of Mass Communication', 'School of Mass Communication'),
+        ('School of Legal Studies', 'School of Legal Studies'),
+        ('School of Basic Sciences', 'School of Basic Sciences'),
+        ('School of Education', 'School of Education'),
+        ('Other / Administration', 'Other / Administration'),
     )
 
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='STUDENT')
